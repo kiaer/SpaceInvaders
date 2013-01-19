@@ -1,15 +1,14 @@
 package Model;
 
-import View.View;
 
 public class Block2 extends GameObjects {
 
-	private View view;
+	private Game game;
 
-	public Block2(View view, String ref, int x, int y, int health) {
+	public Block2(Game game, String ref, int x, int y, int health) {
 		super(ref, x, y, health);
 
-		this.view = view;
+		this.game = game;
 
 	}
 
@@ -17,14 +16,14 @@ public class Block2 extends GameObjects {
 		if (other instanceof Invader_Shot) {
 			this.health = health - 1;
 			if (this.health <= 0) {
-				view.RemoveBlock(this);
+				game.RemoveBlock(this);
 			}
 		}
 		if (other instanceof Shot) {
 			this.health = health - 1;
-			view.RemoveDead(other);
+			game.RemoveDead(other);
 			if (this.health <= 0) {
-				view.RemoveBlock(this);
+				game.RemoveBlock(this);
 			}
 		}
 	}

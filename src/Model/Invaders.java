@@ -1,17 +1,16 @@
 package Model;
 
-import View.View;
 
-import spaceinvaders.Constants;
+import Controller.Constants;
 
 public class Invaders extends GameObjects {
 
-	private View view;
+	private Game game;
 
-	public Invaders(View view, String ref, int x, int y, int health) {
+	public Invaders(Game game, String ref, int x, int y, int health) {
 		super(ref, x, y, health);
 
-		this.view = view;
+		this.game = game;
 
 		dx = Constants.ALIEN_MOVE;
 
@@ -21,12 +20,12 @@ public class Invaders extends GameObjects {
 
 		if ((dx < 0) && (x < 10)) {
 			
-			view.changeDirection();
+			game.changeDirection();
 			
 		}
 		if ((dx > 0) && (x > 750)) {
 
-			view.changeDirection();
+			game.changeDirection();
 		}
 
 	}

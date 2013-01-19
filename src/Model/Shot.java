@@ -1,16 +1,15 @@
 package Model;
 
-import spaceinvaders.*;
-import View.*;
+import Controller.Constants;
 
 public class Shot extends GameObjects {
-	private View view;
+	private Game game;
 	private boolean used = false;
 
-	public Shot(View view, String ref, int x, int y, int health) {
+	public Shot(Game game, String ref, int x, int y, int health) {
 		super(ref, x, y, health);
 
-		this.view = view;
+		this.game = game;
 		dy = Constants.SHOT_MOVE_SPEED;
 
 	}
@@ -18,7 +17,7 @@ public class Shot extends GameObjects {
 	public void move(long delta) {
 		super.move(delta);
 		if (y < Constants.REMOVE_SHOT) {
-			this.view.RemoveDead(this);
+			this.game.RemoveDead(this);
 		}
 	}
 
@@ -29,31 +28,30 @@ public class Shot extends GameObjects {
 		}
 
 		if (other instanceof Invaders) {
-			view.Invader.remove(other);
-			view.RemoveDead(this);
-			view.RemoveDead(other);
-			view.score += 10;
+			game.RemoveDead(this);
+			game.RemoveDead(other);
+			game.score += 10;
 			used = true;
 		}
 		if (other instanceof Block1) {
 
-			view.RemoveDead(this);
+			game.RemoveDead(this);
 			used = true;
 						
 		}
 		if (other instanceof Block2) {
 
-			view.RemoveDead(this);
+			game.RemoveDead(this);
 			used = true;
 						
 		}if (other instanceof Block3) {
 
-			view.RemoveDead(this);
+			game.RemoveDead(this);
 			used = true;
 						
 		}if (other instanceof Block4) {
 
-			view.RemoveDead(this);
+			game.RemoveDead(this);
 			used = true;
 						
 		}

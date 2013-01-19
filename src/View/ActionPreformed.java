@@ -1,7 +1,10 @@
 package View;
 import java.awt.*;
 import java.awt.event.*;
+
+import Controller.Constants;
 import Controller.Controller;
+import Model.Game;
 import spaceinvaders.*;
 
 public class ActionPreformed extends Frame implements WindowListener,ActionListener {
@@ -13,7 +16,7 @@ public class ActionPreformed extends Frame implements WindowListener,ActionListe
         Button b;
         public ActionPreformed(String title) {
 
-                super(title);
+                super();
                 setLayout(new FlowLayout());
                 addWindowListener(this);
                 b = new Button("Start");
@@ -30,10 +33,9 @@ public class ActionPreformed extends Frame implements WindowListener,ActionListe
                 text.setText(text.getText());
                 Constants.Name=text.getText();
                 System.out.println(Constants.Name);
-                View.startgame=true;
-                System.out.println(View.startgame); 
+                Game.startgame=true;
+                System.out.println(Game.startgame); 
                 dispose();
-                //View view = new View();
         }
 
         public void windowClosing(WindowEvent e) {

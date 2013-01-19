@@ -1,10 +1,9 @@
 package Model;
 
-import View.View;
 
 public class GG extends GameObjects {
 
-	public GG(View view, String ref, int x, int y, int health) {
+	public GG(Game game, String ref, int x, int y, int health) {
 		super(ref, x, y, health);
 	}
 

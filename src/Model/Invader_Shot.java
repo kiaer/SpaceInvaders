@@ -1,16 +1,15 @@
 package Model;
 
-import spaceinvaders.Constants;
-import View.View;
+import Controller.Constants;
 
 public class Invader_Shot extends GameObjects {
-	private View view;
+	private Game game;
 	private boolean used = false;
 
-	public Invader_Shot(View view, String ref, int x, int y, int health) {
+	public Invader_Shot(Game game, String ref, int x, int y, int health) {
 		super(ref, x, y, health);
 
-		this.view = view;
+		this.game = game;
 		dy = Constants.INV_SHOT_MOVE_SPEED;
 
 	}
@@ -18,7 +17,7 @@ public class Invader_Shot extends GameObjects {
 	public void move(long delta) {
 		super.move(delta);
 		if (y > Constants.INV_REMOVE_SHOT) {
-			this.view.RemoveDead(this);
+			this.game.RemoveDead(this);
 		}
 	}
 
@@ -29,36 +28,36 @@ public class Invader_Shot extends GameObjects {
 		}
 
 		if (other instanceof Player) {
-			view.life = view.life - 1;
-			System.out.println(view.life);
-			view.RemoveDead(this);
-			if (view.life == 0) {
-				view.gamestart = false;
+			game.life = game.life - 1;
+			System.out.println(game.life);
+			game.RemoveDead(this);
+			if (game.life == 0) {
+				game.gamestart = false;
 
-				view.RemoveDead(other);
+				game.RemoveDead(other);
 
 				used = true;
 			}
 		}
 		if (other instanceof Block1) {
 
-			view.RemoveDead(this);
+			game.RemoveDead(this);
 			used = true;
 						
 		}
 		if (other instanceof Block2) {
 
-			view.RemoveDead(this);
+			game.RemoveDead(this);
 			used = true;
 						
 		}if (other instanceof Block3) {
 
-			view.RemoveDead(this);
+			game.RemoveDead(this);
 			used = true;
 						
 		}if (other instanceof Block4) {
 
-			view.RemoveDead(this);
+			game.RemoveDead(this);
 			used = true;
 						
 		}

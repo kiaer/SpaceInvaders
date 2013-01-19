@@ -1,12 +1,12 @@
 package spaceinvaders;
 
-import View.View;
+import Model.Game;
 
 public class Spaceinvaders {
 
 
 	public static void main(String[] args){
-		new View();
+		new Game();
 
 }
 }

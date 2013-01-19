@@ -3,6 +3,9 @@ package Model;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import View.Sprite;
+import View.SpriteStore;
+
 public abstract class GameObjects {
 
 	protected int x;
