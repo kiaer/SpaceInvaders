@@ -15,7 +15,7 @@ import View.GameFrame;
 public class Game extends Canvas {
 	public static BufferStrategy strategy;
 	private ArrayList<GameObjects> Objects = new ArrayList<GameObjects>();
-	private ArrayList<GameObjects> Invader = new ArrayList<GameObjects>();
+	public ArrayList<GameObjects> Invader = new ArrayList<GameObjects>();
 	private ArrayList<Object> DeadObjects = new ArrayList<Object>();
 	private ArrayList<GameObjects> Player = new ArrayList<GameObjects>();
 	private ArrayList<Object> DeadBlocks = new ArrayList<Object>();
@@ -265,6 +265,7 @@ public class Game extends Canvas {
 				score = 0;
 				level = 0;
 			}
+			System.out.println(Invader.size());
 			if (Invader.size() == 0) {
 
 				if (!Wsongplaying) {
