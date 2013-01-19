@@ -282,7 +282,7 @@ public class View extends Canvas {
 
 				for (int i = 0; i < Objects.size(); i++) {
 					GameObjects objects = (GameObjects) Objects.get(i);
-					objects.changeDirection();
+					objects.GroupInvaders();
 					objects.move(delta);
 
 					drawString(g, "Level: " + level, 720, -5, 25);

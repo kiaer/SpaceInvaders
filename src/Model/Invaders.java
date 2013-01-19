@@ -16,7 +16,6 @@ public class Invaders extends GameObjects {
 		dx = Constants.ALIEN_MOVE;
 
 	}
-
 	
 	public void move(long delta) {
 
@@ -29,16 +28,9 @@ public class Invaders extends GameObjects {
 
 			view.changeDirection();
 		}
-		
-		// proceed with normal move
-		
 
-	//	super.changeDirection();
 	}
-	
 
-
-	@Override
 	public void collide(GameObjects other) {
 		
 	}

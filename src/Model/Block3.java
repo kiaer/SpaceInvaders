@@ -13,18 +13,15 @@ public class Block3 extends GameObjects {
 
 	}
 
-	@Override
 	public void collide(GameObjects other) {
 		if (other instanceof Invader_Shot) {
 			this.health = health - 1;
-			System.out.println(this.health);
 			if (this.health <= 0) {
 				view.RemoveBlock(this);
 			}
 		}
 		if (other instanceof Shot) {
 			this.health = health - 1;
-			System.out.println(this.health);
 			view.RemoveDead(other);
 			if (this.health <= 0) {
 				view.RemoveBlock(this);

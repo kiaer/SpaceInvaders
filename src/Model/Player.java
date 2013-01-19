@@ -13,13 +13,5 @@ public class Player extends GameObjects {
 	}
 
 	public void collide(GameObjects other) {
-
-		if (other instanceof Invaders) {
-			this.health=0;
-
-		}if (other instanceof Invader_Shot) {
-			this.health=health-1;
-			
-		}
 	}
 }

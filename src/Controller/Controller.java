@@ -16,14 +16,16 @@ public class Controller extends KeyAdapter {
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			leftPressed = true;
+		}if (e.getKeyCode() == KeyEvent.VK_A) {
+			leftPressed = true;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			rightPressed = true;
-			//System.out.println(rightPressed);
+		}if (e.getKeyCode() == KeyEvent.VK_D) {
+			rightPressed = true;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			firePressed = true;
-			//System.out.println(firePressed);
 		}else{
 			firePressed=false;
 		}if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
@@ -41,12 +43,15 @@ public class Controller extends KeyAdapter {
 		}
 	} 
 		
-		
 	public void keyReleased(KeyEvent e) {			
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			leftPressed = false;
+		}if (e.getKeyCode() == KeyEvent.VK_A) {
+			leftPressed = false;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+			rightPressed = false;
+		}if (e.getKeyCode() == KeyEvent.VK_D) {
 			rightPressed = false;
 		}
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {

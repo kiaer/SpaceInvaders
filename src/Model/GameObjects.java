@@ -61,11 +61,9 @@ public abstract class GameObjects {
 
 
 	public void setHorizontalMovement(double dx) {
-		// System.out.println("x at start "+x);
 		if (x >= 5 && x <= 750) {
 			this.dx = dx;
 			x += (dx);
-			// System.out.println(x);
 		} else if (x < 5) {
 			x = 5;
 		} else if (x > 750) {
@@ -78,31 +76,10 @@ public abstract class GameObjects {
 		y += (delta * dy) / 1000;
 	}
 
-	public void invaderMove() {
 
-		if (x >= 5 && x <= 750 && y > 5 && y < 600) {
-			x += 50;
-		} else if (x < 5) {
-			x = 5;
-			y += 50;
-		} else if (x > 750) {
-			x = 750;
-			y += 50;
-		} else if (y < 5) {
-			y = 5;
-		} else if (y > 600) {
-			y = 600;
-		}
-
-	}
-
-	public void changeDirection() {
+	public void GroupInvaders() {
 		x += (dx);
 		for (int i = 0; i > 10; i = i + 5) {
-			if (x < 0 || x > 700) {
-
-				dx *= (-1);
-			}
 		}
 	}
 
