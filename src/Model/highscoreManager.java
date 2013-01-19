@@ -37,6 +37,7 @@ public class highscoreManager {
 		updateScoreFile();
 	}
 
+	@SuppressWarnings("unchecked")
 	public void loadScoreFile() {
 		try {
 			inputStream = new ObjectInputStream(new FileInputStream(

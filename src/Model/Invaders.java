@@ -1,8 +1,5 @@
 package Model;
 
-import java.awt.Color;
-import java.awt.Point;
-
 import View.View;
 
 import spaceinvaders.Constants;
@@ -11,8 +8,8 @@ public class Invaders extends GameObjects {
 
 	private View view;
 
-	public Invaders(View view, String ref, int x, int y) {
-		super(ref, x, y);
+	public Invaders(View view, String ref, int x, int y, int health) {
+		super(ref, x, y, health);
 
 		this.view = view;
 

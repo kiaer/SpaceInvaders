@@ -7,7 +7,11 @@ public class Controller extends KeyAdapter {
 	public static boolean leftPressed = false;
 	public static boolean rightPressed = false;
 	public static boolean firePressed = false;
-	public static boolean waitingForKeyPress = true;
+	public boolean waitingForKeyPress = true;
+	public static boolean ESC = false;
+	public static boolean eight=false;
+	public static boolean nine=false;
+	public static boolean Enter=false;
 	
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
@@ -22,6 +26,18 @@ public class Controller extends KeyAdapter {
 			//System.out.println(firePressed);
 		}else{
 			firePressed=false;
+		}if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+			ESC=true;
+			
+		}if(e.getKeyCode() == KeyEvent.VK_8){
+			eight=true;
+			
+		}if(e.getKeyCode() == KeyEvent.VK_9){
+			nine=true;
+			
+		}if(e.getKeyCode() == KeyEvent.VK_ENTER){
+			Enter=true;
+			
 		}
 	} 
 		
@@ -35,6 +51,18 @@ public class Controller extends KeyAdapter {
 		}
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			firePressed = false;
+		}if(e.getKeyCode() == KeyEvent.VK_8){
+			eight=false;
+			
+		}if(e.getKeyCode() == KeyEvent.VK_9){
+			nine=false;
+			
+		}if(e.getKeyCode() == KeyEvent.VK_ENTER){
+			Enter=false;
+			
+		}if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+			ESC=false;
+			
 		}
 	}
 

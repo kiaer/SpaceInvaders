@@ -1,12 +1,7 @@
 package Model;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Point;
 import java.awt.Rectangle;
-import java.util.ArrayList;
-
-import spaceinvaders.*;
 
 public abstract class GameObjects {
 
@@ -26,7 +21,7 @@ public abstract class GameObjects {
 	private Rectangle me = new Rectangle();
 	/** The rectangle used for other entities during collision resolution */
 	private Rectangle him = new Rectangle();
-	private Sprite animation;
+	public int health;
 
 	public int getX() {
 		return x;
@@ -52,15 +47,12 @@ public abstract class GameObjects {
 		this.sprite = sprite;
 	}
 
-	public GameObjects(String ref, int x, int y) {
+	public GameObjects(String ref, int x, int y, int health) {
 		this.sprite = SpriteStore.get().getSprite(ref);
 		this.x = x;
 		this.y = y;
+		this.health = health;
 		
-	}public void GameObjectsAni(String ref,String ref1, int x, int y) {
-		this.animation = SpriteStore.get().getSprite(ref);
-		this.x = x;
-		this.y = y;
 	}
 
 	public void draw(Graphics g) {
@@ -141,6 +133,9 @@ public abstract class GameObjects {
 	public void doChange() {
 		dx *= (-1);
 		y = y + 25;
+	}
+	public void MinusHealth(){
+		this.health=health-1;
 	}
 
 	public abstract void collide(GameObjects other);

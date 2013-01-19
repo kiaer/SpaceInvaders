@@ -1,18 +1,16 @@
 package View;
 import java.awt.*;
 import java.awt.event.*;
-
-import javax.swing.JPanel;
-
 import Controller.Controller;
-
 import spaceinvaders.*;
 
 public class ActionPreformed extends Frame implements WindowListener,ActionListener {
-        TextField text = new TextField(20);
+        /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+		TextField text = new TextField(20);
         Button b;
-
-
         public ActionPreformed(String title) {
 
                 super(title);

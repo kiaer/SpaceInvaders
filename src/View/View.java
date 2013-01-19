@@ -1,61 +1,63 @@
 package View;
 
-import java.applet.Applet;
-import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
-import java.text.AttributedCharacterIterator;
 import java.util.ArrayList;
-import java.util.Map;
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.event.*;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-
 import Controller.Controller;
+import Model.Background;
+import Model.Block1;
+import Model.Block2;
+import Model.Block3;
 import Model.GG;
 import Model.Invader_Shot;
 import Model.Invaders;
 import Model.Player;
 import Model.Shot;
 import Model.Life;
+import Model.Block4;
+import Model.Sound;
 import Model.highscoreManager;
 import spaceinvaders.*;
 import Model.GameObjects;
 
 public class View extends Canvas {
 
-	private ArrayList Objects = new ArrayList();
-	private ArrayList Shot = new ArrayList();
-	private ArrayList Life = new ArrayList();
-	private ArrayList DeadObjects = new ArrayList();
-	private ArrayList Win = new ArrayList();
-	private ArrayList gameover = new ArrayList();
-	private ArrayList<GameObjects> INVShot = new ArrayList();
-	private ArrayList<GameObjects> Player = new ArrayList();
-	public ArrayList<GameObjects> Invader = new ArrayList();
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private ArrayList<GameObjects> Objects = new ArrayList<GameObjects>();
+	private ArrayList<Shot> Shot = new ArrayList<Shot>();
+	private ArrayList<GameObjects> Life = new ArrayList<GameObjects>();
+	private ArrayList<Object> DeadObjects = new ArrayList<Object>();
+	private ArrayList<GG> Win = new ArrayList<GG>();
+	private ArrayList<GG> gameover = new ArrayList<GG>();
+	private ArrayList<Object> DeadBlocks = new ArrayList<Object>();
+	private ArrayList<GameObjects> INVShot = new ArrayList<GameObjects>();
+	private ArrayList<GameObjects> Player = new ArrayList<GameObjects>();
+	public ArrayList<GameObjects> Invader = new ArrayList<GameObjects>();
 	private BufferStrategy strategy;
 	private GameObjects ship;
+	public static GameObjects block12;
+	public static GameObjects block13;
+	public static GameObjects block14;
+	public static GameObjects block22;
+	public static GameObjects block23;
+	public static GameObjects block24;
+	public static GameObjects block32;
+	public static GameObjects block33;
+	public static GameObjects block34;
+	public static GameObjects block42;
+	public static GameObjects block43;
+	public static GameObjects block44;
 	private GameObjects invader;
-	private GameObjects I_invader;
-	private GameObjects shot;
 	private GameObjects Lives;
-	private GameObjects GameOver;
-	private BufferedImage background;
-	private int bgCount = 1;
 	private long lastFire = 0;
-	private long INV_lastFire = 0;
 	private boolean gameRunning = true;
 	private boolean Gameover = false;
-	private int a;
-	private double b;
 	public int InvadersHit = 0;
 	private double invShooters;
 	public int life = 3;
@@ -65,36 +67,46 @@ public class View extends Canvas {
 	private int lifeC = 2;
 	private int level = 1;
 	public int score = 0;
-	private AudioClip song;
-	private URL songPath;
-	private boolean songPlaying = false;
+	public static String name = "Enter your name";
+	public static ActionPreformed panel;
+	public static boolean startgame = false;
+	public boolean songplaying = false;
+	public boolean Dsongplaying = false;
+	public boolean Wsongplaying = false;
+	private Sound sound1 = new Sound("sprites/mario.mid");
+	private Sound fireball = new Sound("sprites/Fireball.wav");
+	private Sound sound2 = new Sound("sprites/MarioDie.wav");
+	private Sound sound3 = new Sound("sprites/Win.wav");
 
 	public View() {
 
 		GameRunning();
-		if (!songPlaying) {
-			sound();
-			songPlaying = true;
-		}
+		startG();
 
-		while (10 > 1) {
-			b = Math.random();
-			if (b < 0.5) {
-				// System.out.println(b);
-				a = 1;
-			} else {
-				a = 0;
+		while (true) {
+
+			// System.out.println(startgame);
+			if (startgame) {
+				if (life >= 3) {
+
+					initializeObjects();
+					Life();
+					loop();
+				}
 			}
-			if (life >= 3) {
-
-				initializeObjects();
-				Life();
-				loop();
+			try {
+				Thread.sleep(10);
+			} catch (Exception e) {
 			}
 		}
 	}
 
-	
+	public static void startG() {
+		panel = new ActionPreformed("Enter name and start game");
+		panel.setSize(350, 100);
+		panel.setVisible(true);
+	}
+
 	public void GameRunning() {
 		JFrame container = new JFrame("Mario Invaders");
 
@@ -126,9 +138,27 @@ public class View extends Canvas {
 
 	}
 
+	public void GameOver() {
+
+		GG gg1 = new GG(this, "sprites/GG1.png", 300, 400, 1);
+		// GG gg2 = new GG(this, "sprites/GGS.gif", 0, 0);
+		Objects.add(gg1);
+		gameover.add(gg1);
+
+	}
+
+	public void Win() {
+
+		GG gg = new GG(this, "sprites/Win.png", 0, 0, 1);
+
+		Objects.add(gg);
+		Win.add(gg);
+
+	}
+
 	public void initializeObjects() {
 
-		ship = new Player(this, "sprites/mario.gif", 500, 500);
+		ship = new Player(this, "sprites/Mario.gif", 500, 500, 3);
 
 		Objects.add(ship);
 		Player.add(ship);
@@ -136,21 +166,56 @@ public class View extends Canvas {
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 12; j++) {
 				invader = new Invaders(this, "sprites/alien.gif",
-						100 + (j * 50), 10 + (i * 50));
-				// I_invader = new Invaders(this, "sprites/Ialien.gif",100 + (j
-				// * 50), 10 + (i * 50));
+						100 + (j * 50), 10 + (i * 50), 1);
 				Objects.add(invader);
-				// Objects.add(I_invader);
-				// Invader.add(I_invader);
 				Invader.add(invader);
 			}
 		}
 
+		// block11 = new Block1(this, "sprites/QBlock.png", 75, 450, 4);
+		block12 = new Block1(this, "sprites/QblockHit1.png", 75, 450, 2);
+		block13 = new Block1(this, "sprites/QblockHit2.png", 75, 451, 4);
+		block14 = new Block1(this, "sprites/QblockHit3.png", 75, 473, 2);
+		// Objects.add(block11);
+		// Blocks.add(block11);
+		Objects.add(block12);
+		Objects.add(block13);
+		Objects.add(block14);
+
+		// block21 = new Block2(this, "sprites/QBlock.png", 75, 450, 4);
+		block22 = new Block2(this, "sprites/QblockHit1.png", 275, 450, 2);
+		block23 = new Block2(this, "sprites/QblockHit2.png", 275, 451, 4);
+		block24 = new Block2(this, "sprites/QblockHit3.png", 275, 473, 2);
+		// Objects.add(block21);
+		// Blocks.add(block21);
+		Objects.add(block22);
+		Objects.add(block23);
+		Objects.add(block24);
+
+		// block31 = new Block3(this, "sprites/QBlock.png", 75, 450, 4);
+		block32 = new Block3(this, "sprites/QblockHit1.png", 475, 450, 2);
+		block33 = new Block3(this, "sprites/QblockHit2.png", 475, 451, 4);
+		block34 = new Block3(this, "sprites/QblockHit3.png", 475, 473, 2);
+		// Objects.add(block31);
+		// Blocks.add(block31);
+		Objects.add(block32);
+		Objects.add(block33);
+		Objects.add(block34);
+
+		// block41 = new Block4(this, "sprites/QBlock.png", 75, 450, 4);
+		block42 = new Block4(this, "sprites/QblockHit1.png", 675, 450, 2);
+		block43 = new Block4(this, "sprites/QblockHit2.png", 675, 451, 4);
+		block44 = new Block4(this, "sprites/QblockHit3.png", 675, 473, 2);
+		// Objects.add(block41);
+		// Blocks.add(block41);
+		Objects.add(block42);
+		Objects.add(block43);
+		Objects.add(block44);
 	}
 
 	public void Life() {
 		for (int i = 0; i < life; i++) {
-			Lives = new Life(this, "sprites/life.gif", 0 + 30 * i, 10);
+			Lives = new Life(this, "sprites/Life.gif", 0 + 30 * i, 10, 1);
 			Objects.add(Lives);
 			Life.add(Lives);
 		}
@@ -163,39 +228,22 @@ public class View extends Canvas {
 		}
 		lastFire = System.currentTimeMillis();
 		Shot shot = new Shot(this, "sprites/FB.gif", ship.getX() + 17,
-				ship.getY() - 30);
+				ship.getY() - 5, 1);
 		Objects.add(shot);
 		Shot.add(shot);
+		
+		fireball.song.play();
 
 	}
 
 	public void INVshoot() {
 		GameObjects INVrandom = Invader.get((int) ((Invader.size() - 1) * Math
 				.random()));
-		INV_lastFire = System.currentTimeMillis();
+		System.currentTimeMillis();
 		Invader_Shot INVshot = new Invader_Shot(this, "sprites/INVshot.gif",
-				INVrandom.getX() + 10, INVrandom.getY() + 15);
+				INVrandom.getX() + 10, INVrandom.getY() + 15, 1);
 		Objects.add(INVshot);
 		INVShot.add(INVshot);
-
-	}
-
-	public void GameOver() {
-
-		GG gg1 = new GG(this, "sprites/GG.gif", 0, 0);
-		GG gg2 = new GG(this, "sprites/GGS.gif", 0, 0);
-		Objects.add(gg1);
-		gameover.add(gg1);
-		Objects.add(gg2);
-		gameover.add(gg2);
-	}
-
-	public void Win() {
-
-		GG gg = new GG(this, "sprites/WIN.gif", 0, 0);
-
-		Objects.add(gg);
-		Win.add(gg);
 
 	}
 
@@ -206,35 +254,29 @@ public class View extends Canvas {
 		long lastLoopTime = System.currentTimeMillis();
 
 		while (gameRunning) {
+
+			if (!songplaying) {
+				
+				System.out.println("start playing");
+				sound1.song.loop();
+				songplaying = true;
+			}
+
 			long delta = System.currentTimeMillis() - lastLoopTime;
 
 			lastLoopTime = System.currentTimeMillis();
 
 			Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
 
-			background(g);
-
-			if (changeRequired == true) {
-				for (int i = 0; i < Invader.size(); i++) {
-					GameObjects objects = (GameObjects) Invader.get(i);
-					objects.doChange();
-
-				}
-				changeRequired = false;
-				// System.out.println(Invader.size());
-			}
-			if (Invader.size() == 0) {
-				GameObjects objects = (GameObjects) Objects.get(1);
-				objects.draw(g);
-				// shot.animate(g);
-
-			}
+			new Background(g, "sprites/MarioWorld.png", 800, 600);
 
 			if (life > 0) {
+				System.out.println(DeadBlocks.size());
+				
 				for (int i = 0; i < Objects.size(); i++) {
+					Objects.removeAll(DeadBlocks);
 					GameObjects objects = (GameObjects) Objects.get(i);
 					objects.draw(g);
-					// shot.animate(g);
 
 				}
 
@@ -243,8 +285,8 @@ public class View extends Canvas {
 					objects.changeDirection();
 					objects.move(delta);
 
-					drawString(g, "Level: " + level, 720, 30, 25);
-					drawString(g, "Score: " + score, 570, 30, 25);
+					drawString(g, "Level: " + level, 720, -5, 25);
+					drawString(g, "Score: " + score, 570, -5, 25);
 				}
 
 				for (int p = 0; p < Objects.size(); p++) {
@@ -259,68 +301,124 @@ public class View extends Canvas {
 						}
 					}
 				}
+
 				for (int d = lifeC; d > (life - 1); d--) {
 					RemoveDead(Life.get(d));
 
 				}
 
-				Objects.removeAll(DeadObjects);
-
-				DeadObjects.clear();
-
 			}
-			if (invader.getY() > 465) {
-				life = 0;
+			for (int p = 0; p < Invader.size(); p++) {
+				if (Invader.get(p).getY() > 465) {
+					life = 0;
 
+				}
+			}if(Controller.ESC){
+				System.exit(0);
+				break;
+				
+			}if(Controller.eight){
+				Constants.MOVE_SPEED=8;
+				Constants.ShotInterval=30;
+			}if(Controller.nine){
+				Constants.MOVE_SPEED=4;
+				Constants.ShotInterval=300;
+				
 			}
-
+			
 			if (life == 0) {
 
+				if (!Dsongplaying) {
+					System.out.println("im here sonny");
+					sound1.song.stop();
+					
+					sound2.song.play();
+					Dsongplaying = true;
+				}
+				try {
+					Thread.sleep(100);
+				} catch (Exception e) {
+				}
 				GameOver();
-				GameObjects objects = (GameObjects) gameover.get(a);
+				GameObjects objects = (GameObjects) gameover.get(0);
 				objects.draw(g);
 				Gameover = true;
-				hm.addScore("Christian", score);
-				System.out.println(hm.getHighscoreString());
-				drawString(g, "HIGHSCORE: ", 75,70,40 );
-				drawString(g, hm.getHighscoreString(), 100, 100, 40);
+				hm.addScore(Constants.Name + " :", score);
+				drawString(g, "HIGHSCORE: ", 5, 5, 40);
+				drawString(g, hm.getHighscoreString(), 20, 20, 30);
 				Constants.WinBoost = 0.0;
 				Constants.ALIEN_MOVE = 3;
 				score = 0;
 				level = 0;
+				DeadBlocks.clear();
 
 			}
 			if (Invader.size() == 0) {
+				sound1.song.stop();
+				
+				if (!Wsongplaying) {
+					sound3.song.play();
+					Wsongplaying = true;
+				}
+				try {
+					Thread.sleep(10);
+				} catch (Exception e) {
+				}
 				Win();
 				GameObjects objects1 = (GameObjects) Win.get(0);
 				objects1.draw(g);
 				Gameover = true;
-
+				
+				
+				//System.out.println("hey buddy");
 			}
-			// System.out.println(invader.getY());
-			if (Gameover && Controller.firePressed) {
+			if (Gameover && Controller.Enter) {
 				if (life == 0) {
 					life = 3;
 					lifeC = 2;
 
 				} else {
+					System.out.println("op much?");
 					life = life + 1;
 					lifeC = life - 1;
 					score += 100;
+					Constants.WinBoost = Constants.WinBoost + 0.005;
+					System.out.println(Constants.ALIEN_MOVE);
+					Constants.ALIEN_MOVE = Constants.ALIEN_MOVE + 0.25;
 				}
-
+				sound2.song.stop();
+				sound3.song.stop();
+				
+				songplaying = false;
+				Wsongplaying = false;
+				Dsongplaying = false;
 				level = level + 1;
 				Objects.clear();
 				Life.clear();
 				Invader.clear();
 				Gameover = false;
-				Constants.WinBoost = Constants.WinBoost + 0.005;
-				System.out.println(Constants.ALIEN_MOVE);
-				Constants.ALIEN_MOVE = Constants.ALIEN_MOVE + 0.25;
-
 				break;
 
 			}
+			if (changeRequired == true) {
+				for (int i = 0; i < Invader.size(); i++) {
+					GameObjects objects = (GameObjects) Invader.get(i);
+					objects.doChange();
+
+				}
+				changeRequired = false;
+			}
+
+			if (changeRequired == true) {
+				for (int i = 0; i < Invader.size(); i++) {
+					GameObjects objects = (GameObjects) Invader.get(i);
+					objects.doChange();
+
+				}
+				changeRequired = false;
+			}
+			Objects.removeAll(DeadObjects);
+			DeadObjects.clear();
 
 			g.dispose();
 			strategy.show();
@@ -339,15 +437,25 @@ public class View extends Canvas {
 			if (Controller.firePressed) {
 
 				shoot();
+				
 				Controller.firePressed = false;
 
 			}
-			invShooters = (delta * (0.02 + Constants.WinBoost));
-			// System.out.println(invShooters);
-			Random = (Math.random() * delta + 0.2);
-			// System.out.println(Invader.size());
-			if (Invader.size() > 0 && (Random) < (invShooters)) {
+			if (changeRequired == true) {
+				for (int i = 0; i < Invader.size(); i++) {
+					GameObjects objects = (GameObjects) Invader.get(i);
+					objects.doChange();
 
+				}
+				changeRequired = false;
+
+			}
+
+			invShooters = (delta * (0.02 + Constants.WinBoost));
+
+			Random = (Math.random() * delta + 0.2);
+
+			if (Invader.size() > 0 && (Random) < (invShooters)) {
 				INVshoot();
 			}
 			try {
@@ -356,11 +464,14 @@ public class View extends Canvas {
 			}
 
 		}
-
 	}
 
 	public void RemoveDead(Object gameobject) {
 		DeadObjects.add(gameobject);
+	}
+
+	public void RemoveBlock(Object gameobject) {
+		DeadBlocks.add(gameobject);
 	}
 
 	public void changeDirection() {
@@ -368,42 +479,10 @@ public class View extends Canvas {
 
 	}
 
-	public void background(Graphics2D g) {
-		URL url = this.getClass().getClassLoader()
-				.getResource("sprites/MarioWorld.gif");
-		try {
-			background = ImageIO.read(url);
-		} catch (IOException ex) {
-			System.out.println("lol?");
-		}
-		g.drawImage(background, 0, 0, 800, 600, Color.black, null);
-
-	}
-
-	public void sound() {
-
-		try
-
-		{
-			URL songPath = this.getClass().getClassLoader()
-					.getResource("sprites/music.mid"); // Get the Sound URL
-
-			song = Applet.newAudioClip(songPath); // Load the Sound
-
-		}
-
-		catch (Exception e) {
-			System.out.println("LOL");
-		} // Satisfy the catch
-
-		song.loop();
-
-	}
-
 	private void drawString(Graphics g, String text, int x, int y, int size) {
-		Font f = new Font("Super Plumber Brothers", Font.PLAIN, size);
+		Font f = new Font("Impact", Font.PLAIN, size);
 
-		g.setColor(Color.orange);
+		g.setColor(Color.black);
 		g.setFont(f);
 
 		for (String line : text.split("\n"))

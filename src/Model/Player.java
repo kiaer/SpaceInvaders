@@ -1,20 +1,11 @@
 package Model;
 
-import spaceinvaders.*;
-
-import java.awt.Color;
-import java.awt.Point;
-
 import View.View;
 
 public class Player extends GameObjects {
 
-	private View view;
-
-	public Player(View view, String ref, int x, int y) {
-		super(ref, x, y);
-
-		this.view = view;
+	public Player(View view, String ref, int x, int y, int health) {
+		super(ref, x, y, health);
 	}
 
 	public void move(long delta) {
@@ -22,11 +13,13 @@ public class Player extends GameObjects {
 	}
 
 	public void collide(GameObjects other) {
-		// if its an alien, notify the game that the player
-		// is dead
-		if (other instanceof Invaders) {
-			 //view.notifyDeath();
-		}
 
+		if (other instanceof Invaders) {
+			this.health=0;
+
+		}if (other instanceof Invader_Shot) {
+			this.health=health-1;
+			
+		}
 	}
 }
