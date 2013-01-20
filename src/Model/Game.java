@@ -272,10 +272,7 @@ public class Game extends Canvas {
 				hm.addScore(Constants.Name + " :", score);
 				new DrawString(g, "HIGHSCORE: ", 5, 5, 40);
 				new DrawString(g, hm.getHighscoreString(), 5, 40, 30);
-				Constants.WinBoost = 0.0;
-				Constants.ALIEN_MOVE = 3;
-				score = 0;
-				level = 0;
+
 			}
 			System.out.println(Invader.size());
 			if (Invader.size() == 0) {
@@ -299,6 +296,10 @@ public class Game extends Canvas {
 				if (life == 0) {
 					life = 3;
 					lifeC = 2;
+					Constants.WinBoost = 0.0;
+					Constants.ALIEN_MOVE = 3;
+					score = 0;
+					level = 0;
 
 				} else {
 					life = life + 1;

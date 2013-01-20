@@ -5,7 +5,6 @@ import java.awt.event.*;
 import Controller.Constants;
 import Controller.Controller;
 import Model.Game;
-import spaceinvaders.*;
 
 public class ActionPreformed extends Frame implements WindowListener,ActionListener {
         /**

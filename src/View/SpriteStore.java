@@ -12,32 +12,30 @@ import java.util.HashMap;
 import javax.imageio.ImageIO;
 
 public class SpriteStore {
-	/** The single instance of this class */
+	// The single instance of this class
+
 	private static SpriteStore single = new SpriteStore();
 
 	/**
-	 * Get the single instance of this class
-	 * 
-	 * @return The single instance of this class
+	 * Get the single instance of this class return The single instance of this
+	 * class
 	 */
 	public static SpriteStore get() {
 		return single;
 	}
 
-	/** The cached sprite map, from reference to sprite instance */
+	// The cached sprite map, from reference to sprite instance
 	private HashMap<String, Sprite> sprites = new HashMap<String, Sprite>();
 
 	/**
-	 * Retrieve a sprite from the store
-	 * 
-	 * @param ref
-	 *            The reference to the image to use for the sprite
-	 * @return A sprite instance containing an accelerate image of the request
-	 *         reference
+	 * Retrieve a sprite from the store Ref is the reference to the image to use
+	 * for the sprite Return A sprite instance containing an accelerate image of
+	 * the request reference
 	 */
 	public Sprite getSprite(String ref) {
-		// if we've already got the sprite in the cache
-		// then just return the existing version
+		/**
+		 * if sprite already is in cache then just return the existing version
+		 */
 		if (sprites.get(ref) != null) {
 			return (Sprite) sprites.get(ref);
 		}
@@ -47,10 +45,11 @@ public class SpriteStore {
 		BufferedImage sourceImage = null;
 
 		try {
-			// The ClassLoader.getResource() ensures we get the sprite
-			// from the appropriate place, this helps with deploying the game
-			// with things like webstart. You could equally do a file look
-			// up here.
+			/*
+			 * The ClassLoader.getResource() ensures we get the sprite from the
+			 * appropriate place, this helps with deploying the game with things
+			 * like webstart. You could equally do a file look up here.
+			 */
 			URL url = this.getClass().getClassLoader().getResource(ref);
 
 			if (url == null) {
@@ -82,12 +81,10 @@ public class SpriteStore {
 
 	/**
 	 * Utility method to handle resource loading failure
-	 * 
-	 * @param message
-	 *            The message to display on failure
+	 * "message" is the message to display on failure
 	 */
 	private void fail(String message) {
-		// we're pretty dramatic here, if a resource isn't available
+		// If a resource isn't available
 		// we dump the message and exit the game
 		System.err.println(message);
 		System.exit(0);
