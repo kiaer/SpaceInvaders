@@ -28,6 +28,7 @@ public class Shot extends GameObjects {
 		}
 
 		if (other instanceof Invaders) {
+			Game.IHit=true;
 		    game.Invader.remove(other);
 			game.RemoveDead(this);
 			game.RemoveDead(other);
