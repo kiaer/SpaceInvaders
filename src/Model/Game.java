@@ -86,7 +86,7 @@ public class Game extends Canvas {
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 12; j++) {
 				invader = new Invaders(this, "sprites/alien.gif",
-						100 + (j * 50), 10 + (i * 50), 1);
+						100 + (j * 50), 50 + (i * 50), 1);
 				Objects.add(invader);
 				Invader.add(invader);
 			}
@@ -187,8 +187,8 @@ public class Game extends Canvas {
 			Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
 
 			new Background(g, "sprites/MarioWorld.png", 800, 600);
-			new DrawString(g, "Level: " + level, 720, -5, 25);
-			new DrawString(g, "Score: " + score, 570, -5, 25);
+			new DrawString(g, "Level: " + level, 650, 5, 25);
+			new DrawString(g, "Score: " + score, 425, 5, 25);
 
 			if (life > 0) {
 
@@ -259,7 +259,7 @@ public class Game extends Canvas {
 				Gameover = true;
 				hm.addScore(Constants.Name + " :", score);
 				new DrawString(g, "HIGHSCORE: ", 5, 5, 40);
-				new DrawString(g, hm.getHighscoreString(), 20, 20, 30);
+				new DrawString(g, hm.getHighscoreString(), 5, 40, 30);
 				Constants.WinBoost = 0.0;
 				Constants.ALIEN_MOVE = 3;
 				score = 0;
