@@ -94,28 +94,10 @@ public abstract class GameObjects {
 		return me.intersects(him);
 	}
 
-	public boolean change() {
-		x += (dx);
-		int k = 0;
-		for (int i = 0; i > 10; i = i + 5) {
-			if (x < 0 || x > 700) {
-
-				k = 1;
-				break;
-			}
-		}
-		if (k == 1)
-			return true;
-		else
-			return false;
-	}
 
 	public void doChange() {
 		dx *= (-1);
 		y = y + 25;
-	}
-	public void MinusHealth(){
-		this.health=health-1;
 	}
 
 	public abstract void collide(GameObjects other);

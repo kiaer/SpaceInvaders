@@ -65,7 +65,7 @@ public class Game extends Canvas {
 	public Game() {
 
 		new GameFrame();
-		GameFrame.startG();
+		GameFrame.startG("EnterName");
 		while (true) {
 			if (startgame) {
 				if (life >= 3) {

@@ -1,9 +1,12 @@
 package Controller;
 
 public class Constants {
+	/**
+	 * Constants game runs on
+	 */
 
-	public static final int GRID_HEIGHT = 800;
-	public static final int GRID_WIDTH = 600;
+	public static final int GRID_HEIGHT = 600;
+	public static final int GRID_WIDTH = 800;
 	public static double MOVE_SPEED = 4;
 	public static final double SHOT_MOVE_SPEED = -700;
 	public static double ALIEN_MOVE = 3;

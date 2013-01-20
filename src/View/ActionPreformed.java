@@ -12,13 +12,14 @@ public class ActionPreformed extends Frame implements WindowListener,ActionListe
 	 */
 	private static final long serialVersionUID = 1L;
 		TextField text = new TextField(20);
+		TextField text1 = new TextField(20);
         Button b;
         public ActionPreformed(String title) {
 
                 super();
                 setLayout(new FlowLayout());
                 addWindowListener(this);
-                b = new Button("Start");
+                b = new Button("Enter name and start");
                 add(b);
                 add(text);
                 addKeyListener(new Controller());

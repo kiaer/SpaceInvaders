@@ -8,6 +8,8 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import Controller.Constants;
+
 import Controller.Controller;
 import Model.Game;
 
@@ -18,7 +20,7 @@ public class GameFrame extends Canvas{
 		JFrame container = new JFrame("Mario Invaders");
 
 		JPanel panel = (JPanel) container.getContentPane();
-		panel.setPreferredSize(new Dimension(800, 600));
+		panel.setPreferredSize(new Dimension(Constants.GRID_WIDTH, Constants.GRID_HEIGHT));
 		panel.setLayout(null);
 
 		setBounds(0, 0, 800, 600);
@@ -43,8 +45,8 @@ public class GameFrame extends Canvas{
 		createBufferStrategy(2);
 		Game.strategy = getBufferStrategy();
 
-	}public static void startG() {
-		panel = new ActionPreformed("Enter name and start game");
+	}public static void startG(String s) {
+		panel = new ActionPreformed("name");
 		panel.setSize(350, 100);
 		panel.setVisible(true);
 	}
