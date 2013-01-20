@@ -40,6 +40,7 @@ public class Game extends Canvas {
 	private Sound sound1 = new Sound("sprites/mario.mid");
 	private Sound sound2 = new Sound("sprites/MarioDie.wav");
 	private Sound sound3 = new Sound("sprites/Win.wav");
+	private Sound pop = new Sound("sprites/die.wav");
 	private Sound fireball = new Sound("sprites/Fireball.wav");
 	private boolean gameRunning = true;
 	private boolean Gameover = false;
@@ -49,6 +50,7 @@ public class Game extends Canvas {
 	public boolean songplaying = false;
 	public boolean Dsongplaying = false;
 	public boolean Wsongplaying = false;
+	public static boolean BlockHit = false;
 	private long lastFire = 0;
 	private double invShooters;
 	private double Random;
@@ -226,6 +228,10 @@ public class Game extends Canvas {
 					life = 0;
 
 				}
+			}if (BlockHit) {
+				pop.song.play();
+				BlockHit = false;
+				
 			}
 			if (Controller.ESC) {
 				System.exit(0);
