@@ -274,7 +274,7 @@ public class Game extends Canvas {
 				new DrawString(g, hm.getHighscoreString(), 5, 40, 30);
 
 			}
-			System.out.println(Invader.size());
+
 			if (Invader.size() == 0) {
 
 				if (!Wsongplaying) {
@@ -322,7 +322,7 @@ public class Game extends Canvas {
 				break;
 
 			}
-			if (changeRequired == true) {
+			if (changeRequired) {
 				for (int i = 0; i < Invader.size(); i++) {
 					GameObjects objects = (GameObjects) Invader.get(i);
 					objects.doChange();
@@ -331,7 +331,7 @@ public class Game extends Canvas {
 				changeRequired = false;
 			}
 
-			if (changeRequired == true) {
+			if (changeRequired) {
 				for (int i = 0; i < Invader.size(); i++) {
 					GameObjects objects = (GameObjects) Invader.get(i);
 					objects.doChange();
@@ -342,22 +342,13 @@ public class Game extends Canvas {
 
 			ship.setHorizontalMovement(0);
 
-			if ((Controller.rightPressed == true)
-					&& (!Controller.leftPressed == true)) {
+			if ((Controller.rightPressed)
+					&& (!Controller.leftPressed)) {
 				ship.setHorizontalMovement(Constants.MOVE_SPEED);
 
-			} else if ((Controller.leftPressed == true)
-					&& (!Controller.rightPressed == true)) {
+			} else if ((Controller.leftPressed)
+					&& (!Controller.rightPressed)) {
 				ship.setHorizontalMovement(-(Constants.MOVE_SPEED));
-
-			}
-			if (changeRequired == true) {
-				for (int i = 0; i < Invader.size(); i++) {
-					GameObjects objects = (GameObjects) Invader.get(i);
-					objects.doChange();
-
-				}
-				changeRequired = false;
 
 			}
 			if (Controller.firePressed) {
